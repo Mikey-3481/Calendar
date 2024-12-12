@@ -3,4 +3,12 @@
   justify-items: center;
 }
 
+.body {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
 
+#year-select {
+  margin-right: 70px;
+}
