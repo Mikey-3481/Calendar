@@ -1,0 +1,9 @@
+export const WEEK_DAYS = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+export const MONTHS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+export const STARTING_YEAR = 2000;
+export const STARTING_MONTH = 1;
+export const STARTING_WEEKDAY = 6;
+export const DAYS_IN_LEAPYEAR = 366;
+export const DAYS_IN_GENERALYEAR = 365;
+export const DAYS_IN_WEEK = 7;
+export const ENDING_YEAR = 2050;
