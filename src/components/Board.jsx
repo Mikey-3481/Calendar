@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import isLeapYear from "../utils/helper.js";
 import {
   WEEK_DAYS,
@@ -12,6 +12,18 @@ import {
   ENDING_YEAR,
 } from "../constants.js";
 
+const getTotalDays = (year, month) => {
+  let totalDays = 0;
+  for (let y = STARTING_YEAR; y < year; y++) {
+    totalDays += isLeapYear(y) ? DAYS_IN_LEAPYEAR : DAYS_IN_GENERALYEAR;
+  }
+  for (let m = 0; m < month - 1; m++) {
+    totalDays += MONTHS[m];
+  }
+  if (isLeapYear(year) && month > 2) totalDays += 1;
+  return totalDays;
+};
+
 export default function Board() {
   const [selectedYear, setSelectedYear] = useState(STARTING_YEAR);
   const [selectedMonth, setSelectedMonth] = useState(STARTING_MONTH);
@@ -22,32 +34,16 @@ export default function Board() {
   for (let year = STARTING_YEAR; year <= ENDING_YEAR; year++)
     yearList.push(year);
 
-  const getLastDays = (year, month) => {
-    let totalDays = 0;
-
-    for (let y = STARTING_YEAR; y < year; y++) {
-      totalDays += isLeapYear(y) ? DAYS_IN_LEAPYEAR : DAYS_IN_GENERALYEAR;
-    }
-
-    for (let m = 0; m < month - 1; m++) {
-      totalDays += MONTHS[m];
-    }
-
-    if (isLeapYear(year) && month > 2) totalDays += 1;
-
-    return totalDays;
-  };
-
-  const totalDays = getLastDays(selectedYear, selectedMonth);
+  const totalDays = getTotalDays(selectedYear, selectedMonth);
 
   const startDate = (totalDays + STARTING_WEEKDAY) % DAYS_IN_WEEK;
 
+  useMemo()
   let days = [];
   for (let d = 1; d <= MONTHS[selectedMonth - 1]; d++) {
     days.push(d);
   }
   days = [...Array(startDate).fill(null), ...days];
-
 
   return (
     <div className="board">
