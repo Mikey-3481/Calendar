@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import isLeapYear from "../utils/helper.js";
 import {
   WEEK_DAYS,
   MONTHS,
@@ -15,9 +16,11 @@ export default function Board() {
   const [selectedYear, setSelectedYear] = useState(STARTING_YEAR);
   const [selectedMonth, setSelectedMonth] = useState(STARTING_MONTH);
 
-  const isLeapYear = (year) => {
-    return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
-  };
+  const yearList = [];
+  const monthList = [];
+  for (let month = 1; month <= 12; month++) monthList.push(month);
+  for (let year = STARTING_YEAR; year <= ENDING_YEAR; year++)
+    yearList.push(year);
 
   const getLastDays = (year, month) => {
     let totalDays = 0;
@@ -45,13 +48,6 @@ export default function Board() {
   }
   days = [...Array(startDate).fill(null), ...days];
 
-  const yearArr = [];
-  const monthArr = [];
-  for (let month = 1; month <= 12; month++) monthArr.push(month);
-  for (let year = STARTING_YEAR; year <= ENDING_YEAR; year++)
-    yearArr.push(year);
-
-  console.log(days);
 
   return (
     <div className="board">
@@ -62,7 +58,7 @@ export default function Board() {
           id="year-select"
           onChange={(e) => setSelectedYear(Number(e.target.value))}
         >
-          {yearArr.map((year) => (
+          {yearList.map((year) => (
             <option key={year} value={year}>
               {year}
             </option>
@@ -74,7 +70,7 @@ export default function Board() {
           id="month-select"
           onChange={(e) => setSelectedMonth(Number(e.target.value))}
         >
-          {monthArr.map((month) => (
+          {monthList.map((month) => (
             <option key={month} value={month}>
               {month}
             </option>
