@@ -35,15 +35,16 @@ export default function Board() {
     yearList.push(year);
 
   const totalDays = getTotalDays(selectedYear, selectedMonth);
-
   const startDate = (totalDays + STARTING_WEEKDAY) % DAYS_IN_WEEK;
 
-  useMemo()
-  let days = [];
-  for (let d = 1; d <= MONTHS[selectedMonth - 1]; d++) {
-    days.push(d);
-  }
-  days = [...Array(startDate).fill(null), ...days];
+  const days = useMemo(() => {
+    let daysOfMonth = [];
+    for (let d = 1; d <= MONTHS[selectedMonth - 1]; d++) {
+      daysOfMonth.push(d);
+    }
+    daysOfMonth = [...Array(startDate).fill(null), ...daysOfMonth];
+    return daysOfMonth;
+  }, [selectedYear, selectedMonth])
 
   return (
     <div className="board">
